@@ -1,4 +1,4 @@
-package com.spring.learnspringframework.game;
+package com.spring.learnspringframework2.game;
 
 public interface GamingConsole {
 	void up();

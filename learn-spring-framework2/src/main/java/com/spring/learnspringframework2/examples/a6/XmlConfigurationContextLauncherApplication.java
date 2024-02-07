@@ -1,9 +1,9 @@
-package com.spring.learnspringframework.examples.a6;
+package com.spring.learnspringframework2.examples.a6;
 
 import java.util.Arrays;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.spring.learnspringframework.game.GameRunner;
+import com.spring.learnspringframework2.game.GameRunner;
 
 public class XmlConfigurationContextLauncherApplication {
 		

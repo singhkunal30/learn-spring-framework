@@ -1,4 +1,4 @@
-package com.spring.learnspringframework.examples.a5;
+package com.spring.learnspringframework2.examples.a5;
 
 import java.util.Arrays;
 

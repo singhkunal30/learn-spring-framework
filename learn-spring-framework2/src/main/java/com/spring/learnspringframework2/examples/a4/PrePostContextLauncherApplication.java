@@ -1,4 +1,4 @@
-package com.spring.learnspringframework.examples.a4;
+package com.spring.learnspringframework2.examples.a4;
 
 import java.util.Arrays;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
