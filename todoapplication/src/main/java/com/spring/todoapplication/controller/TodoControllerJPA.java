@@ -14,23 +14,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.spring.todoapplication.model.Todo;
-import com.spring.todoapplication.service.TodoService;
+import com.spring.todoapplication.repository.TodoRepository;
 
 import jakarta.validation.Valid;
 
-//@Controller
+@Controller
 @SessionAttributes("name")
-public class TodoController {
+public class TodoControllerJPA {
 	
-	private TodoService todoService;	
-	public TodoController(TodoService todoService) {
+	private TodoRepository todoRepository;
+	
+	public TodoControllerJPA(TodoRepository repository) {
 		super();
-		this.todoService = todoService;
+		this.todoRepository = repository;
 	}
 
 	@RequestMapping("list-todos")
 	public String listAllTodos(ModelMap model) {
-		List<Todo> todos = todoService.findByUsername(getLoggedinUsername(model));
+		List<Todo> todos = todoRepository.findByUsername(getLoggedinUsername(model));
 		model.addAttribute("todos", todos);
 		return "listTodos";
 	}
@@ -54,19 +55,20 @@ public class TodoController {
 			return "todo";
 		}
 		String username=getLoggedinUsername(model);
-		todoService.addTodo(username, todo.getDescription(), todo.getTargetDate(), false);
+		todo.setUsername(username);
+		todoRepository.save(todo);
 		return "redirect:list-todos";
 	}
 	
 	@RequestMapping(value="delete-todo")
 	public String deleteTodo(@RequestParam int id) {
-		todoService.deleteTodo(id);
+		todoRepository.deleteById(id);
 		return "redirect:list-todos";
 	}
 	
 	@RequestMapping(value="update-todo", method = RequestMethod.GET)
 	public String showUpdateTodoPage(@RequestParam int id, ModelMap model) {
-		Todo todo = todoService.findById(id);
+		Todo todo = todoRepository.findById(id).get();
 		model.addAttribute("todo", todo);
 		return "todo";
 	}
@@ -78,7 +80,7 @@ public class TodoController {
 		}
 		String username=getLoggedinUsername(model);
 		todo.setUsername(username);
-		todoService.updateTodo(todo);
+		todoRepository.save(todo);
 		return "redirect:list-todos";
 	}
 }
